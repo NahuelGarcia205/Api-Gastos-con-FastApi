@@ -1,14 +1,20 @@
 from pydantic import BaseModel
 from datetime import date
 
-class GastoCreate():
+
+class GastoBase(BaseModel):
     descripcion: str
     monto: float
     categoria: str
-    
-class GastoResponse(GastoCreate):
+
+
+class GastoCreate(GastoBase):
+    pass
+
+
+class GastoResponse(GastoBase):
     id: int
     fecha: date
-    
-class Config:
-    from_attributes = True
+
+    class Config:
+        from_attributes = True
