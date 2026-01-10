@@ -31,3 +31,38 @@ def crear_gasto(gasto:schemas.GastoCreate,db: Session = Depends(get_db)):
         db.rollback()
         raise HTTPException(status_code=500,detail=f"Error al crear el gasto: {str(e)}")
     
+@app.get("/gastos")
+def listar_gastos(db: Session = Depends(get_db)):
+    try:
+        gastos = db.query(models.Gasto).order_by(models.Gasto.fecha).all()
+        
+        if not gastos:
+            return{"mensaje": "No hay gastos cargados"}
+        
+        gastos_agrupados={}
+        
+        for gasto in gastos:
+            fecha = gasto.fecha.isoformat()
+            
+            if fecha not in gastos_agrupados:
+                gastos_agrupados[fecha] = {
+                    "fecha":fecha,
+                    "gastos": [],
+                    "total":0
+                }
+            
+            gastos_agrupados[fecha]["gastos"].append({
+                "id":gasto.id,
+                "descripcion":gasto.descripcion,
+                "categoria":gasto.categoria,
+                "monto":gasto.monto
+            })
+            
+            gastos_agrupados[fecha]["total"]+=gasto.monto
+            
+        resultado = list(gastos_agrupados.values())
+        return resultado
+    
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500,detail=f"Error al mostrar Gastos: {str(e)}")
