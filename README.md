@@ -8,23 +8,43 @@ Proyecto personal para practicar Python de forma realista y progresiva, aplicand
 
 ## 🚀 Tecnologías utilizadas
 
-- Python 3.x
-- Git / GitHub
+- Python 3
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- SQLite
+- Uvicorn
+- Git & GitHub
 - Entorno virtual (venv)
 
 ---
 
-## 📂 Estado del proyecto
+## 📂 Estructura del proyecto
 
-🟡 En desarrollo  
-Actualmente en fase de **setup del proyecto y aprendizaje de Git y entorno virtual**.
+├── main.py
+├── database.py
+├── models.py
+├── schemas.py
+├── requirements.txt
+├── README.md
+└── venv/
 
 ---
 
 ## 🛠️ Configuración del entorno
 
 ### Crear entorno virtual
-```bash
+
 1-python -m venv venv
 2-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 3-.\venv\Scripts\activate
+
+---
+
+### ⚙️ Instalación y ejecución de las librerias
+pip install -r requirements.txt
+
+---
+
+### Ejecutar el Servidor
+uvicorn main:app --reload
