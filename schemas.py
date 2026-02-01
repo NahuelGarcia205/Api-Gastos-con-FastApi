@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 
 class GastoCreate(BaseModel):
@@ -18,3 +19,8 @@ class GastoResponse(GastoCreate):
 
     class Config:
         from_attributes = True
+        
+class GastoUpdate(BaseModel):
+    descripcion: Optional[str]= None
+    monto: Optional[str]= None
+    categoria: Optional[str]= None

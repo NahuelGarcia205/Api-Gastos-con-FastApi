@@ -79,6 +79,33 @@ def eliminar_gasto(gasto_id: int, db: Session=Depends(get_db)):
     db.delete(gasto)
     db.commit()
 
+
+@app.put("/gastos/{gasto_id}",response_model=schemas.GastoResponse)
+def modificar_gasto(gasto_id: int,gasto_actualizado: schemas.GastoUpdate, db: Session=Depends(get_db)):
+    try:
+        gasto=db.query(models.Gasto).filter(models.Gasto.id == gasto_id).first()
         
+        if not gasto:
+            raise HTTPException(status_code=404,detail="no se encontro el gasto a modificar")
+        
+        if gasto_actualizado.descripcion is not None:
+            gasto.descripcion = gasto_actualizado.descripcion
+            
+        if gasto_actualizado.monto is not None:
+            gasto.monto = gasto_actualizado.monto
+            
+        if gasto_actualizado.categoria is not None:
+            gasto.categoria = gasto_actualizado.categoria
+            
+        db.commit()
+        db.refresh(gasto)
+        return gasto
+    
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500,detail=f"error al actualizar el gasto: {str(e)}")
+        
+        
+    
     
         
