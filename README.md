@@ -22,11 +22,17 @@ Proyecto personal para practicar Python de forma realista y progresiva, aplicand
 ## 📂 Estructura del proyecto
 
 ├── main.py
+
 ├── database.py
+
 ├── models.py
+
 ├── schemas.py
+
 ├── requirements.txt
+
 ├── README.md
+
 └── venv/
 
 ---
