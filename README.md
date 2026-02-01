@@ -36,7 +36,9 @@ Proyecto personal para practicar Python de forma realista y progresiva, aplicand
 ### Crear entorno virtual
 
 1-python -m venv venv
+
 2-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
 3-.\venv\Scripts\activate
 
 ---
