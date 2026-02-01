@@ -22,5 +22,5 @@ class GastoResponse(GastoCreate):
         
 class GastoUpdate(BaseModel):
     descripcion: Optional[str]= None
-    monto: Optional[str]= None
+    monto: Optional[float]= None
     categoria: Optional[str]= None
