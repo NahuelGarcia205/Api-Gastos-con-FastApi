@@ -66,3 +66,19 @@ def listar_gastos(db: Session = Depends(get_db)):
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500,detail=f"Error al mostrar Gastos: {str(e)}")
+
+
+@app.delete("/gastos/{gasto_id}",status_code=204)
+def eliminar_gasto(gasto_id: int, db: Session=Depends(get_db)):
+            
+    gasto=db.query(models.Gasto).filter(models.Gasto.id == gasto_id).first()
+        
+    if not gasto:
+        raise HTTPException(status_code=404, detail="el gasto no se encuentra")
+        
+    db.delete(gasto)
+    db.commit()
+
+        
+    
+        
